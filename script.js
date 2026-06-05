@@ -6,6 +6,7 @@ const urlError = document.getElementById('url-error');
 const submitBtn = document.getElementById('submit-btn');
 const bookmarkList = document.getElementById('bookmark-list');
 const emptyState = document.getElementById('empty-state');
+const searchInput = document.getElementById('search');
 
 let bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
 
@@ -22,9 +23,16 @@ function saveToStorage() {
 }
 
 function renderBookmarks() {
+  const query = searchInput.value.trim().toLowerCase();
   bookmarkList.innerHTML = '';
 
-  if (bookmarks.length === 0) {
+  const filtered = bookmarks
+    .map((bookmark, index) => ({ ...bookmark, index }))
+    .filter(({ title, url }) =>
+      !query || title.toLowerCase().includes(query) || url.toLowerCase().includes(query)
+    );
+
+  if (filtered.length === 0) {
     emptyState.classList.remove('hidden');
     return;
   }
@@ -32,10 +40,10 @@ function renderBookmarks() {
   emptyState.classList.add('hidden');
 
   const grouped = {};
-  bookmarks.forEach((bookmark, index) => {
+  filtered.forEach((bookmark) => {
     const cat = bookmark.category;
     if (!grouped[cat]) grouped[cat] = [];
-    grouped[cat].push({ ...bookmark, index });
+    grouped[cat].push(bookmark);
   });
 
   Object.entries(grouped).forEach(([category, items]) => {
@@ -124,5 +132,7 @@ bookmarkList.addEventListener('click', (e) => {
     submitBtn.disabled = false;
   }
 });
+
+searchInput.addEventListener('input', renderBookmarks);
 
 renderBookmarks();

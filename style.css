@@ -105,6 +105,24 @@ button[type="submit"]:disabled {
   cursor: not-allowed;
 }
 
+/* ── Search ── */
+#search {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: #fff;
+  outline: none;
+  margin-bottom: 20px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+#search:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
 /* ── Bookmark list ── */
 #bookmark-list {
   list-style: none;

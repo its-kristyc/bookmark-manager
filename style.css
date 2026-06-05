@@ -159,7 +159,7 @@ button[type="submit"]:disabled {
   background: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
-  padding: 14px 16px;
+  padding: 14px 48px 14px 16px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -199,30 +199,74 @@ button[type="submit"]:disabled {
   width: fit-content;
 }
 
-/* ── Remove button ── */
-.remove-btn {
+/* ── Card action buttons ── */
+.card-actions {
   position: absolute;
+  right: 10px;
   top: 50%;
-  right: 12px;
   transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  border: none;
-  background: #fee2e2;
-  color: #ef4444;
-  font-size: 0.75rem;
-  line-height: 1;
-  cursor: pointer;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
   opacity: 0;
   transition: opacity 0.15s;
 }
 
-.bookmark-item:hover .remove-btn {
+.bookmark-item:hover .card-actions,
+.bookmark-item.editing .card-actions {
   opacity: 1;
+}
+
+.card-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.15s;
+}
+
+.card-btn:hover:not(:disabled) {
+  filter: brightness(0.92);
+}
+
+.edit-btn  { background: #e0e7ff; color: #4f46e5; }
+.remove-btn { background: #fee2e2; color: #ef4444; }
+.save-btn  { background: #dcfce7; color: #16a34a; }
+.cancel-btn { background: #fee2e2; color: #ef4444; }
+
+.save-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Inline edit inputs ── */
+.edit-input {
+  padding: 5px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.edit-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+.edit-input.input-error {
+  border-color: #ef4444;
+}
+
+.edit-error {
+  font-size: 0.78rem;
+  color: #ef4444;
+  min-height: 1rem;
 }
 
 /* ── Empty state ── */
